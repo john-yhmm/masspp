@@ -1,0 +1,18 @@
+import { useDownload } from './download';
+
+export default {
+  setup() {
+    const { download } = useDownload();
+
+    const handleDownload = () => {
+      fetch('/presentation')
+        .then(response => response.blob())
+        .then(blob => download(blob, 'hello_world.pptx'));
+    };
+
+    return { handleDownload };
+  },
+  template: `
+    <button @click="handleDownload">Download</button>
+  `,
+};

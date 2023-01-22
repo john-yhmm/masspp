@@ -1,0 +1,41 @@
+import axios from 'axios';
+import { ref } from 'vue';
+
+export function useDownload() {
+  const download = (blob, filename) => {
+    // Create a URL that points to the file
+    const url = URL.createObjectURL(blob);
+
+    // Create a link element with the URL as the href attribute
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    a.href = url;
+    a.download = filename;
+
+    // Append the link to the body and click it
+    document.body.appendChild(a);
+    a.click();
+
+    // Revoke the URL when the download is complete
+    window.URL.revokeObjectURL(url);
+  };
+
+  return { download };
+}
+
+export default {
+  setup() {
+    const { download } = useDownload();
+
+    const handleDownload = () => {
+      axios.get('/presentation', { responseType: 'blob' })
+        .then(response => response.data)
+        .then(blob => download(blob, 'hello_world.pptx'));
+    };
+
+    return { handleDownload };
+  },
+  template: `
+    <button @click="handleDownload">Download</button>
+  `,
+};

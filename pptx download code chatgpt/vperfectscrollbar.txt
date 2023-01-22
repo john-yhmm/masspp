@@ -1,0 +1,49 @@
+<template>
+  <v-app-bar
+    app
+    color="primary"
+    dark
+    scrollbar
+  >
+    <template v-slot:scrollbar>
+      <v-perfect-scrollbar>
+        <!-- Your content here -->
+      </v-perfect-scrollbar>
+    </template>
+  </v-app-bar>
+</template>
+
+<script>
+import VPerfectScrollbar from 'vue2-perfect-scrollbar'
+
+export default {
+  components: {
+    VPerfectScrollbar
+  }
+}
+</script>
+
+<template>
+  <div class="scrollable-div">
+    <v-perfect-scrollbar>
+      <!-- Your content here -->
+    </v-perfect-scrollbar>
+  </div>
+</template>
+
+<style>
+.scrollable-div {
+  height: 200px;
+  overflow: scroll;
+}
+</style>
+
+<script>
+import VPerfectScrollbar from 'vue2-perfect-scrollbar'
+
+export default {
+  components: {
+    VPerfectScrollbar
+  }
+}
+</script>

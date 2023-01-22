@@ -1,0 +1,31 @@
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.io.IOException;
+import java.io.InputStream;
+
+@RestController
+@RequestMapping("/presentation")
+public class PresentationController {
+  @GetMapping
+  public ResponseEntity<InputStreamResource> getPresentation() throws IOException {
+    // Read the PowerPoint file into an InputStream
+    InputStream inputStream = getClass().getClassLoader().getResourceAsStream("hello_world.pptx");
+
+    // Set the content type and attachment header
+    HttpHeaders headers = new HttpHeaders();
+    headers.add("Content-Disposition", "attachment; filename=hello_world.pptx");
+
+    // Create the response entity with the InputStream as the body and the headers
+    return ResponseEntity
+      .ok()
+      .headers(headers)
+      .contentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.presentationml.presentation"))
+      .body(new InputStreamResource(inputStream));
+  }
+}

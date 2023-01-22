@@ -1,0 +1,12 @@
+import DownloadButton from './download-button';
+
+export default {
+  template: `
+    <download-button @click="handleDownload"></download-button>
+  `,
+  methods: {
+    handleDownload() {
+      this.$emit('click');
+    },
+  },
+};
